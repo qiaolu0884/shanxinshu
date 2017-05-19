@@ -1,0 +1,8 @@
+body,html{ background: #fff; }
+
+.login img.bg{ width: 100%; }
+.login form{ width: 400px; margin: 30px auto 0; }
+.login form h1.title{ height: 105px; line-height: 105px; margin-bottom: 20px; }
+.login form h1.title img{ padding-right: 40px;}
+.login form input[type="button"],input[type="submit"]{ float: left; width: 180px; margin-left: 90px;}
+.login form label.yzm{ letter-spacing: 1px; }

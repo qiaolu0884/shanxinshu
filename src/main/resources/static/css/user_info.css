@@ -1,0 +1,21 @@
+
+.user_info div.title a{ float: left; width: 160px; height: 40px; line-height: 40px; margin: 20px 0; border-radius: 5px; background: #ccc; color: #fff; font-size: 16px; text-align: center; }
+
+.user_info div.title a.current{ background: #ff9e20; }
+
+/*.user_info .selectMenu { float: left; margin-right: 35px; margin-bottom: 0;}
+*/
+
+/* form.info_query{ margin-bottom: 20px; }*/
+
+
+.user_info .tables{ position: relative; }
+
+a.export{ display: block; color: #ff9e20; padding: 20px 20px 0; }
+a.export img{ float: left; height: 24px; }
+a.export span{ float: left; padding-left: 6px; line-height: 24px; }
+
+
+
+
+ul.page{}

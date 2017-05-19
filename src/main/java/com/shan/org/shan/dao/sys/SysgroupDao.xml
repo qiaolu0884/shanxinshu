@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.org.shan.dao.sys.SysgroupDao" >
+  <resultMap id="BaseResultMap" type="com.shan.org.shan.pojo.sys.Sysgroup" >
+    <id column="group_id" property="gid" />
+    <result column="group_name" property="groupName" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remarks" property="remarks" jdbcType="CHAR" />
+    <collection property="sysusers" ofType="com.shan.org.shan.pojo.sys.Sysuser">
+			<id column="sys_id" property="sysId" />
+	</collection>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      group_id, group_name, status, remarks
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.sys.SysgroupQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sxs_sysgroup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <!-- 查询该群组的信息和权限   -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select * from sxs_sysgroup where group_id = #{gid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sxs_sysgroup
+    where group_id = #{gid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shan.org.shan.pojo.sys.SysgroupQuery" >
+    delete from sxs_sysgroup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shan.org.shan.pojo.sys.Sysgroup" >
+    insert into sxs_sysgroup (group_id, group_name, status, 
+      remarks)
+    values ( #{gid},#{groupName,jdbcType=CHAR}, #{status,jdbcType=BIGINT}, 
+      #{remarks,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shan.org.shan.pojo.sys.Sysgroup" >
+    insert into sxs_sysgroup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        group_id,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gid != null" >
+        #{gid,jdbcType=BIGINT},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shan.org.shan.pojo.sys.SysgroupQuery" resultType="java.lang.Integer" >
+    select count(*) from sxs_sysgroup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="queryByName" resultMap="BaseResultMap">
+  	select * from sxs_sysgroup where group_name=#{groupName}
+  </select>
+  
+  <select id="groupList" resultMap="BaseResultMap">
+  	<!-- select g.*,u.* from sxs_sysgroup g inner join sxs_sysuser u on g.gid=u.group_id -->
+  	select * from sxs_sysgroup where status = 1
+  </select>
+  
+  <select id="groupNumber" resultMap="BaseResultMap" >
+    	select * from sxs_sysgroup
+  </select>
+  <select id="groupPage" resultMap="BaseResultMap">
+  	select * from sxs_sysgroup limit 0,10
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sxs_sysgroup
+    <set >
+      <if test="record.gid != null" >
+        group_id = #{record.gid,jdbcType=BIGINT},
+      </if>
+      <if test="record.groupName != null" >
+        group_name = #{record.groupName,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sxs_sysgroup
+    set group_id = #{record.gid,jdbcType=BIGINT},
+      group_name = #{record.groupName,jdbcType=CHAR},
+      status = #{record.status,jdbcType=BIGINT},
+      remarks = #{record.remarks,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shan.org.shan.pojo.sys.Sysgroup" >
+    update sxs_sysgroup
+    <set >
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=CHAR},
+      </if>
+    </set>
+    where group_id = #{gid}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shan.org.shan.pojo.sys.Sysgroup" >
+    update sxs_sysgroup
+    set group_name = #{groupName,jdbcType=CHAR},
+      status = #{status,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=CHAR}
+    where group_id = #{gid,jdbcType=BIGINT}
+  </update>
+</mapper>

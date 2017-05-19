@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.org.shan.dao.OrderDao" >
+  <resultMap id="BaseResultMap" type="com.shan.org.shan.pojo.Order" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="order_number" property="orderNumber" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="commodity_id" property="commodityId" jdbcType="BIGINT" />
+    <result column="order_count" property="orderCount" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_grade" property="userGrade" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="queryOrderCount" resultMap="BaseResultMap">
+  	select * from sxs_order
+  </select>
+  <select id="queryOrderList" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.Order">
+  		select o.*,u.* from sxs_order o inner join sxs_user u on o.user_id=u.user_id limit 0,10
+  </select>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, status, money, order_number, create_time, commodity_id, order_count, user_id
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.OrderQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sxs_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    id,status,money,order_number,create_time,commodity_id,order_count,user_id
+    from sxs_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sxs_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shan.org.shan.pojo.OrderQuery" >
+    delete from sxs_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shan.org.shan.pojo.Order" >
+    insert into sxs_order (id, status, money, 
+      order_number, create_time, commodity_id, 
+      order_count, user_id)
+    values (#{id,jdbcType=BIGINT}, #{status,jdbcType=BIGINT}, #{money,jdbcType=DECIMAL}, 
+      #{orderNumber,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{commodityId,jdbcType=BIGINT}, 
+      #{orderCount,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shan.org.shan.pojo.Order" keyProperty="id" useGeneratedKeys="true">
+    insert into sxs_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="commodityId != null" >
+        commodity_id,
+      </if>
+      <if test="orderCount != null" >
+        order_count,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null" >
+        #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCount != null" >
+        #{orderCount,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shan.org.shan.pojo.OrderQuery" resultType="java.lang.Integer" >
+    select count(*) from sxs_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sxs_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderNumber != null" >
+        order_number = #{record.orderNumber,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.commodityId != null" >
+        commodity_id = #{record.commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="record.orderCount != null" >
+        order_count = #{record.orderCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sxs_order
+    set id = #{record.id,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=BIGINT},
+      money = #{record.money,jdbcType=DECIMAL},
+      order_number = #{record.orderNumber,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      commodity_id = #{record.commodityId,jdbcType=BIGINT},
+      order_count = #{record.orderCount,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shan.org.shan.pojo.Order" >
+    update sxs_order
+    <set >
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="commodityId != null" >
+        commodity_id = #{commodityId,jdbcType=BIGINT},
+      </if>
+      <if test="orderCount != null" >
+        order_count = #{orderCount,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shan.org.shan.pojo.OrderT" >
+    update sxs_order
+    set status = #{status,jdbcType=BIGINT},
+      money = #{money,jdbcType=DECIMAL},
+      order_number = #{orderNumber,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      commodity_id = #{commodityId,jdbcType=BIGINT},
+      order_count = #{orderCount,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="queryToDayCount" resultMap="BaseResultMap">
+  	select * from sxs_order where create_time between #{beginTime} and #{endTime}
+  </select>
+  
+  <!-- 根据时间段和交易状态进行查询 -->
+  <select id="selcetByDataandStatus" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.OrderT">
+  	select 
+	o.create_time,o.order_number,o.`status`,o.money,u.user_grade,u.user_id
+ 	from sxs_order o,sxs_user u
+	where 
+	o.user_id=u.user_id
+	and o.create_time 
+  	BETWEEN #{beginTime,jdbcType=BIGINT}
+  	AND #{endTime,jdbcType=BIGINT} 
+  	<if test = "status != null">
+  	AND o.`status` = #{status,jdbcType=BIGINT} 
+  	</if>
+  	<if test = "order_number != null">
+  	AND o.order_number = #{order_number,jdbcType=BIGINT}
+  	</if> 
+  </select>
+  
+  <!-- 根据时间段查询 善心币和善种子和总金额 -->
+  <select id="sumData" resultType="com.shan.org.shan.pojo.OrderT" parameterType="com.shan.org.shan.pojo.OrderT">
+	SELECT
+	SUM(CASE WHEN commodity_id=1 THEN order_count ELSE 0 END) sxb,
+	SUM(CASE WHEN commodity_id=2 THEN order_count ELSE 0 END) szz,
+	SUM(money) money 
+	FROM sxs_order
+	WHERE
+	create_time BETWEEN #{beginTime,jdbcType=BIGINT}
+  	AND #{endTime,jdbcType=BIGINT}
+  	AND `status` = 1
+  </select> 
+ <select id="queryOrderzuhe" resultMap="BaseResultMap">
+  	select o.*,u.* from sxs_order o inner join sxs_user u on o.user_id=u.user_id where 1=1
+	<if test="beginTime != null and endTime != null">
+		and o.create_time between #{beginTime} and #{endTime}
+	</if>
+  	<if test ="status != null">
+  		and o.status = #{status}
+  	</if>
+  	<if test ="orderNumber != null">
+  		and o.order_number = #{orderNumber}
+  	</if> 
+  	<if test="username != null">
+  		and u.username = #{username}
+  	</if>
+  	<if test="userGrade != null">
+  		and o.user_grade = #{userGrade}
+  	</if>
+  	<if test="pageTiao != 0">
+		limit #{pagenumber},#{pageTiao}
+	</if>
+  </select>
+ 
+</mapper>

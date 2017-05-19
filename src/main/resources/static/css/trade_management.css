@@ -1,0 +1,35 @@
+
+div.title a{ float: left; width: 160px; height: 40px; line-height: 40px; margin: 20px 20px 20px 0; border-radius: 5px; background: #ccc; color: #fff; font-size: 16px; text-align: center; }
+
+div.title a.current,div.title a:hover{ background: #ff9e20; }
+
+
+div.menu{ height: 50px; line-height: 50px; }
+div.menu a{ color: #333; }
+div.menu a.back{  color: #ff9e20; }
+
+.info_query input[type="button"],.info_query input[type="submit"]{margin-right: 20px; }
+.btn{ margin-bottom: 0;}
+.tags{ margin-left: 30px;}
+
+.selectMenu{ margin-bottom: 35px;}
+.dateselect{ margin-bottom: 0;}
+
+.detail{ width: 860px; margin: 0 auto; }
+.detail > div{ float: left; width:  auto; /* margin: 50px 80px; */ padding:50px 85px 50px 0; }
+.detail > div:first-child{ margin-left: 0;}
+.detail > div:last-child{ margin-right: 0;}
+.detail > div img{ float: left; height: 100px; margin-right: 10px;}
+.detail > div div{ float: right;} 
+.detail > div p:first-child{ font-size: 14px; padding:  20px 0 10px; }
+.detail > div p span{ font-size: 24px; }
+
+a.export,a.log{ display: block; color: #ff9e20; padding: 20px 20px 0; }
+a.export img,a.log img{ float: left; height: 24px; }
+a.export span,a.log span{ float: left; padding-left: 6px; line-height: 24px; }
+
+
+.table1 tr th{ border-left: 1px solid #fff; height: 35px; line-height: 35px; font-size: 14px; }
+.table1 tr:first-child th:first-child{ border-color: #567794;}
+
+ul.page{}

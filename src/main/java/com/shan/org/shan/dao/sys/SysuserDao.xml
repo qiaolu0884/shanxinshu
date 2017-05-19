@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.org.shan.dao.sys.SysuserDao" >
+  <resultMap id="BaseResultMap" type="com.shan.org.shan.pojo.sys.Sysuser" >
+    <id column="sys_id" property="sysId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="BIGINT" />
+    <result column="remarks" property="remarks" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="lastlogin_time" property="lastloginTime" jdbcType="BIGINT" />
+    <association property="sysgroupId" column="group_id" javaType="Sysgroup" resultMap="Sysgroup"></association>
+  </resultMap>
+   <resultMap id="BaseResultMaptwo" type="com.shan.org.shan.pojo.sys.Sysuser" >
+    <id column="sys_id" property="sysId" jdbcType="BIGINT" />
+    <result column="username" property="username" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="name" property="name" jdbcType="CHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="BIGINT" />
+    <result column="remarks" property="remarks" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="lastlogin_time" property="lastloginTime" jdbcType="BIGINT" />
+    <result column="group_id" property="gid" jdbcType="BIGINT" />
+  </resultMap>
+  <!-- 用户群组 -->
+  <resultMap type="com.shan.org.shan.pojo.sys.Sysgroup" id="Sysgroup">
+  	<id column="gid" property="gid"/>
+    <result column="group_name" property="groupName" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="remarks" property="remarks" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      sys_id, username, password, name, creater, phone, remarks, status, create_time, update_time, 
+      lastlogin_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.sys.SysuserQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sxs_sysuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select u.*,g.group_id from sxs_sysuser u inner join sxs_sysgroup g on u.group_id=g.group_id
+    where sys_id = #{sysId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sxs_sysuser
+    where sys_id = #{sysId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shan.org.shan.pojo.sys.SysuserQuery" >
+    delete from sxs_sysuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shan.org.shan.pojo.sys.Sysuser" keyProperty="id" useGeneratedKeys="true">
+    insert into sxs_sysuser (sys_id, username, password, 
+      name, creater, phone, remarks, 
+      status, create_time, update_time, 
+      lastlogin_time,group_id)
+    values (#{sysId,jdbcType=BIGINT}, #{username,jdbcType=CHAR}, #{password,jdbcType=CHAR}, 
+      #{name,jdbcType=CHAR}, #{creater,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, #{remarks,jdbcType=CHAR}, 
+      #{status,jdbcType=BIGINT}, #{createTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT}, 
+      #{lastloginTime,jdbcType=BIGINT},#{sysgroupId.gid,jdbcType=BIGINT})
+  </insert>
+  <insert id="addSysuser" parameterType="com.shan.org.shan.pojo.sys.Sysuser" keyProperty="sysId" useGeneratedKeys="true">
+    insert into sxs_sysuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysId != null" >
+        sys_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="creater != null" >
+        creater,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="lastloginTime != null" >
+        lastlogin_time,
+      </if>
+      <if test="sysgroupId.gid != null" >
+        group_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysId != null" >
+        #{sysId,jdbcType=BIGINT},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastloginTime != null" >
+        #{lastloginTime,jdbcType=BIGINT},
+      </if>
+      <if test="sysgroupId.gid != null" >
+        #{sysgroupId.gid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shan.org.shan.pojo.sys.SysuserQuery" resultType="java.lang.Integer" >
+    select count(*) from sxs_sysuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sxs_sysuser
+    <set >
+      <if test="record.sysId != null" >
+        sys_id = #{record.sysId,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=CHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.creater != null" >
+        creater = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=BIGINT},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastloginTime != null" >
+        lastlogin_time = #{record.lastloginTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sxs_sysuser
+    set sys_id = #{record.sysId,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=CHAR},
+      password = #{record.password,jdbcType=CHAR},
+      name = #{record.name,jdbcType=CHAR},
+      creater = #{record.creater,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=BIGINT},
+      remarks = #{record.remarks,jdbcType=CHAR},
+      status = #{record.status,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      lastlogin_time = #{record.lastloginTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shan.org.shan.pojo.sys.Sysuser" >
+    update sxs_sysuser
+    <set >
+      <if test="username != null" >
+        username = #{username},
+      </if>
+      <if test="password != null" >
+        password = #{password},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+      <if test="creater != null" >
+        creater = #{creater},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks},
+      </if>
+      <if test="status != null" >
+        status = #{status},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime},
+      </if>
+      <if test="lastloginTime != null" >
+        lastlogin_time = #{lastloginTime},
+      </if>
+      <if test="sysgroupId != null" >
+        group_id = #{sysgroupId.gid},
+      </if>
+    </set>
+    where sys_id = #{sysId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shan.org.shan.pojo.sys.Sysuser" >
+    update sxs_sysuser
+    set username = #{username,jdbcType=CHAR},
+      password = #{password,jdbcType=CHAR},
+      name = #{name,jdbcType=CHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=CHAR},
+      status = #{status,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      lastlogin_time = #{lastloginTime,jdbcType=BIGINT}
+    where sys_id = #{sysId,jdbcType=BIGINT}
+  </update>
+  <select id="findSysuserByName" resultMap="BaseResultMap">
+  	select * from sxs_sysuser where username=#{username}
+  </select>
+  <select id="findSysuserByNameAndGid" resultMap="BaseResultMaptwo">
+  	select * from sxs_sysuser where username=#{username}
+  </select>
+    <select id="findSysuserList" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.sys.Sysuser">
+  		select u.*,g.* from sxs_sysuser u inner join sxs_sysgroup g on u.group_id=g.group_id
+  </select>
+  
+  <select id="querySysuserPage" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.sys.Sysuser">
+  		select u.*,g.* from sxs_sysuser u inner join sxs_sysgroup g on u.group_id=g.group_id limit 0,10
+  </select>
+  
+  <select id="combinedQuery" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.sys.Sysuser">
+  	select u.*,g.* from sxs_sysuser u inner join sxs_sysgroup g on u.group_id=g.group_id where 1=1
+  	<if test="beginTime != null and endTime != null">
+		and create_time between #{beginTime} and #{endTime}
+	</if>
+	<if test="status != null">
+		and u.status=#{status} 
+	</if>
+	<if test="username != null">
+	  	and username=#{username}
+	</if>
+	<if test="group != null">
+		and group_id=#{group}
+	</if>
+	<if test="name != null">
+	  	and name=#{name}
+	</if>
+	<if test="pageTiao != 0">
+		limit #{pagenumber},#{pageTiao}
+	</if>
+  </select>
+  
+  
+  <select id="findSysUsersByGroupId" resultMap="BaseResultMap">
+  	select g.group_name,g.remarks,u.username,u.name from sxs_sysgroup g inner join sxs_sysuser u on g.group_id=u.group_id where gid=#{gid}
+  </select>
+  <!-- Sysuser getLoginUser(SysuserQuery query); -->
+  <select id="getLoginUser" resultType="Sysuser" parameterType="SysuserQuery">
+  	select * from sxs_sysuser on
+  	<where>
+	  	username = #{username}  and  password = #{password} 
+  	</where>
+  </select>
+  
+  <update id="updateLastLoginTime" parameterType="java.lang.Long">
+  	
+  </update>
+  
+</mapper>

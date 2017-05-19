@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shan.org.shan.dao.DownloadDao" >
+  <resultMap id="BaseResultMap" type="com.shan.org.shan.pojo.Download" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sysuser_id" property="sysuserId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="count" property="count"/>
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="message" property="message"/>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      id, sysuser_id, remarks, count, create_time
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shan.org.shan.pojo.DownloadQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sxs_download
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    id,sysuser_id,remarks,count,create_time
+    from sxs_download
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sxs_download
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shan.org.shan.pojo.DownloadQuery" >
+    delete from sxs_download
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shan.org.shan.pojo.Download" >
+     insert into sxs_download
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    <if test="id != null" >
+        id,
+      </if>
+      <if test="sysuserId != null">
+      	sysuser_id,
+      </if>
+      <if test="status != null">
+      	status,
+      </if>
+      <if test="count != null">
+      	count,
+      </if>
+      <if test="createTime != null">
+      	create_time,
+      </if>
+      <if test="message != null">
+      	message,
+      </if>
+       </trim>
+     <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <if test="id != null" >
+        #{id},
+      </if>
+      <if test="sysuserId != null">
+      	#{sysuserId},
+      </if>
+      <if test="status != null">
+      	#{status},
+      </if>
+      <if test="count != null">
+      	#{count},
+      </if>
+      <if test="createTime != null">
+      	#{createTime},
+      </if>
+      <if test="message != null">
+      	#{message},
+      </if>
+     </trim>
+  </insert>
+  <insert id="insertSelective" parameterType="com.shan.org.shan.pojo.Download" >
+    insert into sxs_download
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sysuserId != null" >
+        sysuser_id,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="sysuserId != null" >
+        #{sysuserId,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=CHAR},
+      </if>
+      <if test="count != null" >
+        #{count},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shan.org.shan.pojo.DownloadQuery" resultType="java.lang.Integer" >
+    select count(*) from sxs_download
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sxs_download
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.sysuserId != null" >
+        sysuser_id = #{record.sysuserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=CHAR},
+      </if>
+      <if test="record.count != null" >
+        count = #{record.count},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sxs_download
+    set id = #{record.id,jdbcType=BIGINT},
+      sysuser_id = #{record.sysuserId,jdbcType=BIGINT},
+      remarks = #{record.remarks,jdbcType=CHAR},
+      count = #{record.count},
+      create_time = #{record.createTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shan.org.shan.pojo.Download" >
+    update sxs_download
+    <set >
+      <if test="sysuserId != null" >
+        sysuser_id = #{sysuserId,jdbcType=BIGINT},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=CHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shan.org.shan.pojo.Download" >
+    update sxs_download
+    set sysuser_id = #{sysuserId,jdbcType=BIGINT},
+      remarks = #{remarks,jdbcType=CHAR},
+      count = #{count},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selcetByDataandStatus" resultMap="BaseResultMap" parameterType="String">
+  	select d.*,u.* from sxs_download d inner join sxs_sysuser u on d.sysuser_id=u.sys_id where 1=1
+  	<if test="username != null">
+  		and u.username=#{username}
+  	</if>
+  	<if test="pageTiao != 0">
+  		limit #{pagenumber},#{pageTiao}
+  	</if>
+  </select>
+  	<!-- <select id="queryDownload" resultMap="BaseResultMap">
+  		select d.*,u.* from sxs_download d inner join sxs_user u on d.sysuser_id=u.user_id where 1=1
+  		<if test="pageTiao != 0">
+  			limit #{pagenumber},#{pageTiao}
+  		</if>
+  	</select> -->
+  
+</mapper>

@@ -1,0 +1,76 @@
+
+form > div{ margin-bottom: 30px;}
+
+label{ float: left; height: 45px; line-height: 45px; width: 90px; text-align: left ;  font-size: 18px;}
+input,textarea{ float: left; width: 278px;  height: 23px; border: 1px solid #ccc; line-height: 43px; padding: 10px; border-radius: 5px; }
+ 
+form div.code{ float: left; width: 300px; }
+form div.code input{float: left; width: 123px;}
+form div.code span{ float: right; width: 133px; height: 43px; line-height: 43px; border: 1px solid #ccc; text-align: center;}
+
+input[type="button"],input[type="submit"]{ width: 300px; height: 45px; line-height: 45px; background: #f56701; padding: 0; border: none; color: #fff; font-size: 20px; }
+
+
+/*查询form*/
+.info_query { padding: 20px; }
+.info_query p{ float: left; margin-right: 35px; }
+.info_query p label{ font-size: 14px; width: auto; height: 40px; line-height: 40px; margin-right: 10px; }
+.info_query p input{ width: 158px; border-radius: 0; height: 18px; line-height: 18px; }
+.info_query input[type="button"],.info_query input[type="submit"]{ float: right; width: 120px; height: 40px; line-height: 40px; border-radius: 3px; background: #6aa173; font-size: 14px; }
+
+.info_query .tags a{ float: left; line-height: 40px; padding: 0 10px; color: #6aa173; }
+
+/*下拉列表选择*/
+.selectMenu { float: left; margin-right: 35px; margin-bottom: 0;}
+.selectMenu label{ font-size: 14px; width: auto; margin-right: 10px; height: 40px; }
+
+.dropdownMenu{ position: relative; float: left; width: 138px; height: 38px; padding: 0 20px; line-height: 38px; border: 1px solid #ccc; }
+.dropdownMenu img{ position: absolute; right: 20px; top: 15px;}
+.dropdownMenu input[type="text"]{ display: block; width: 80px; border: none; padding-right: 40px; height: 18px; overflow: hidden;  text-overflow: ellipsis ; white-space: nowrap; cursor: default;  }
+.dropdownMenu .mask{ position: absolute; left: -1px; top: 38px; width: 100%; background: #fff; border: 1px solid #ccc; max-height: 200px; overflow-y: scroll; display: none; z-index: 1;  }
+.dropdownMenu ul li{ color: #333; padding: 0 20px; overflow: hidden; text-overflow: ellipsis ; white-space: nowrap; cursor: pointer; }
+.dropdownMenu ul li:hover,.dropdownMenu ul li:active,.dropdownMenu ul li:focus{ background: #6aa173; color: #fff;}
+
+/*---日期选择---*/
+.dateselect label{ font-size: 14px; width: auto; margin-right: 10px; height: 40px; }
+.dateselect span{ margin-right:6px; color:#a7a7a7; font-size:14px;  }
+.dateselect p{ position:relative; width:180px; margin-right: 0; }
+.dateselect input[type="text"]{ width: 158px;}
+.dateselect p a{ position:absolute; top: 9px; right: 10px;  }
+.dateselect p a img{ width: 17px;}
+
+/*弹窗*/
+.popup { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 1;}
+.popup .popup_cont{ position: absolute; left: 50%; top: 50%; width: 360px; height: 450px; margin: -225px 0 0 -180px; background: #fff; z-index: 2; }
+.popup .popup_cont h2.title{ height: 40px; line-height: 40px; text-align: center; font-size: 16px; background: #6aa173; color: #fff; }
+.popup form{ padding: 30px 25px 0; }
+.popup form > div{ margin-bottom: 10px; }
+.popup label{ font-size: 14px; width: 80px; height: 36px; line-height: 36px; margin-right: 10px; text-align: right; }
+.popup input{ width: 168px; border-radius: 0; height: 14px; line-height: 14px; }
+.popup input[type="button"],.popup input[type="submit"]{ width: 120px; height: 36px; line-height: 36px; margin-top: 10px; border-radius: 0px; background: #6aa173; font-size: 14px; }
+.popup .selectMenu{ float: none; }
+.popup .selectMenu .dropdownMenu { height: 34px; line-height: 34px; width: 143px; } 
+.popup .dropdownMenu .mask{ top: 34px;}
+.popup .dropdownMenu img{ width: 12px;}
+.popup .dropdownMenu input[type="text"]{ height: 13px;}
+.popup textarea{ width: 190px; height: 70px; border-radius: 0; padding: 0 10px; line-height: 36px; resize: none;}
+.popup a.close{ position: absolute; right: -35px; top: -25px;} 
+.popup a.close img{ width: 32px; }
+.popup .bg{ position: absolute; left: 0; top: 0; width: 100%; height: 100%;  background: #000; opacity: 0.7; filter:alpha(opacity=50); }
+/* page*/
+.pages{ width: 420px; height: 35px; line-height: 35px; margin: 0 auto; padding: 20px 0;}
+.pages input[type="button"],.pages input[type="submit"]{ width: 35px; height: 35px; line-height: 35px; text-align: center; font-size: 14px; background: #567794; }
+.pages input.num_text{ width: 30px; height: 13px; line-height: 13px; margin: 0 10px; text-align: center; }
+.pages .dropdownMenu{ width: 40px; height: 33px; line-height: 33px; padding: 0 20px 0 10px; margin: 0 20px 0 10px; }
+.pages .dropdownMenu img{ position: absolute; right: 10px; top: 14px; width: 13px;}
+.pages .dropdownMenu span{ height: 35px; line-height: 35px; width: 35px; text-align: center; padding-right: 20px;}
+.pages .dropdownMenu ul li a{ width: 100%; text-align: center; padding: 0;} 
+.pages .dropdownMenu .mask{ top: auto; bottom: 33px;}
+.pages .dropdownMenu ul li a:hover,.pages .dropdownMenu ul li a:active,.pages .dropdownMenu ul li a:focus{ background: #567794; color: #fff;}
+.pages .pagebtn b{ padding: 0 5px; color: #d90000; }
+.pages .pagebtn ul{ margin: 0 5px; }
+.pages .pagebtn ul li{ float: left; margin: 0 5px; }
+.pages .pagebtn ul li img{ display: block; height: 13px; margin: 11px 0 0;}
+.pages .pagebtn em{ font-style: normal; padding: 0 5px;}
+
+/*checkbox*/
